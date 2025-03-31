@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Õige/Vale Generaator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c1a33; /* Darker background */
+            color: #fff;
+            background-image: url('cyberpunk-background-8k.jpg'); /* Replace with a relevant URL */
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-white {
+            background-color: rgba(255, 255, 255, 0.1); /* Glassmorphism effect - more transparent*/
+        }
+        .shadow-md {
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+        }
+        #kontrolliNupp {
+            width: 150px; /* Increased size */
+            height: 150px;
+            border-radius: 50%; /* Make it a circle */
+            background-image: linear-gradient(to bottom right, #663399, #ff0066); /* Gradient button */
+            color: #fff;
+            font-size: 24px; /* Larger font size */
+            font-weight: 800; /* Use the extra-bold font weight */
+            border: 3px solid #ff66cc; /* Neon pink border */
+            box-shadow: 0 0 20px rgba(255, 102, 204, 0.7); /* Glowing effect */
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+            cursor: pointer;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        #kontrolliNupp:hover {
+            transform: scale(1.1); /* Slightly larger on hover */
+            box-shadow: 0 0 30px rgba(255, 102, 204, 0.9); /* Increased glow on hover */
+        }
+        #vastusTekst {
+            margin-top: 30px; /* Increased margin */
+            font-size: 36px; /* Larger font size */
+            font-weight: 600; /* Use the semi-bold font weight */
+            color: #fff; /* Keep text white */
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* Add text shadow */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex justify-center items-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+        <button id="kontrolliNupp" class="focus:outline-none">
+        </button>
+        <p id="vastusTekst" class="mt-6 text-xl font-semibold"></p>
+    </div>
+
+    <script>
+        const kontrolliNupp = document.getElementById("kontrolliNupp");
+        const vastusTekst = document.getElementById("vastusTekst");
+
+        kontrolliNupp.addEventListener("click", function() {
+            // Genereeri juhuslik number (0 või 1)
+            const juhuslikNumber = Math.floor(Math.random() * 2);
+
+            // Määra vastus ja helifaili nimi
+            let vastus = juhuslikNumber === 0 ? "Vale" : "Õige";
+            const helifail = juhuslikNumber === 0 ? "wrong.mp3" : "right.mp3";
+
+            // Kuva vastus
+            vastusTekst.textContent = vastus;
+            vastusTekst.style.color = juhuslikNumber === 0 ? "#ff4d4d" : "#00ff00"; // ярко красный и ярко зеленый
+            // vastusTekst.style.color = juhuslikNumber === 0 ? "#ef4444" : "#22c55e"; // Red for "Vale", Green for "Õige"
+
+
+            // Esita vastav helifail
+            const heli = new Audio(helifail);
+            heli.play();
+        });
+    </script>
+</body>
+</html>
