@@ -22,6 +22,7 @@
             align-items: center;
             min-height: 100vh; /* Ensure full viewport height */
             margin: 0; /* Remove default body margin */
+            transition: background-color 3s ease; /* Smooth transition for background color */
         }
         /* Remove the white box */
         .bg-white {
@@ -50,7 +51,8 @@
             line-height: 150px; /* Vertically center text, same as height */
             position: relative; /* Needed for absolute positioning of the dot */
         }
-        #kontrolliNupp:hover {
+        /* Change hover to active for tap feedback */
+        #kontrolliNupp:hover, #kontrolliNupp:active {
             transform: scale(1.1); /* Slightly larger on hover */
             box-shadow: 0 0 30px rgba(255, 255, 255, 1); /* Increased glow on hover */
         }
@@ -103,10 +105,23 @@
             // vastusTekst.style.color = juhuslikNumber === 0 ? "#ff4d4d" : "#00ff00"; // ярко красный и ярко зеленый
             // vastusTekst.style.color = juhuslikNumber === 0 ? "#ef4444" : "#22c55e"; // Red for "Vale", Green for "Õige"
 
+            // Flash the background
+            document.body.style.transition = "none"; // Remove transition for immediate color change
+            if (juhuslikNumber === 0) {
+                document.body.style.backgroundColor = "#ff0000"; // Red
+            } else {
+                document.body.style.backgroundColor = "#00ff00"; // Green
+            }
 
             // Esita vastav helifail
             const heli = new Audio(helifail);
             heli.play();
+
+            // Fade back to black after 3 seconds
+            setTimeout(function() {
+                document.body.style.transition = "background-color 3s ease"; // Re-enable transition
+                document.body.style.backgroundColor = "#000"; // Fade back to black
+            }, 10); // Short delay before starting fade
         });
     </script>
 </body>
